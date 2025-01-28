@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { getLivros } from '../../servicos/livros'
 import { useEffect } from 'react'
 import { postFavorito } from '../../servicos/favoritos'
+import livroImagem from '../../imagens/livro.png'
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002F52 35%, #326589 165%);
@@ -73,13 +74,13 @@ function Pesquisa() {
                 placeholder="Escreva sua próxima leitura"
                 onBlur={evento => {
                     const textoDigitado = evento.target.value
-                    const resultadoPesquisa = livros.filter( livro => livro.nome.includes(textoDigitado))
+                    const resultadoPesquisa = livros.filter( livro => livro.nome.toLowerCase().includes(textoDigitado.toLowerCase()))
                     setLivrosPesquisados(resultadoPesquisa)
                 }}
             />
             { livrosPesquisados.map( livro => (
                 <Resultado onClick={() => insereFavorito(livro.id)}>
-                    <img src={livro.src}/>
+                    <img src={livroImagem} alt='Capa do livro'/>
                     <p>{livro.nome}</p>
                 </Resultado>
             ) ) }
